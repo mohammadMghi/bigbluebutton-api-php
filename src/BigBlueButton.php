@@ -62,10 +62,17 @@ class BigBlueButton
 
     public function __construct()
     {
+    }
+    
+    public function connection($config) : self
+    {
+        $baseUrl = "{$config['baseUrl']}" ?? getenv('BBB_SERVER_BASE_URL');
+        $secretKey = "{$config['secretKey']}" ?? getenv('BBB_SECRET');
         // Keeping backward compatibility with older deployed versions
-        $this->securitySecret   = (getenv('BBB_SECURITY_SALT') === false) ? getenv('BBB_SECRET') : $this->securitySecret = getenv('BBB_SECURITY_SALT');
-        $this->bbbServerBaseUrl = getenv('BBB_SERVER_BASE_URL');
+        $this->securitySecret   = (getenv('BBB_SECURITY_SALT') === false) ? $secretKey : $this->securitySecret = getenv('BBB_SECURITY_SALT');
+        $this->bbbServerBaseUrl = "{$config['baseUrl']}";
         $this->urlBuilder       = new UrlBuilder($this->securitySecret, $this->bbbServerBaseUrl);
+        return new $this;
     }
 
     /**
