@@ -18,6 +18,7 @@
  */
 namespace BigBlueButton;
 
+use App\Domain\shared\Repository\BigBlueButtonRepository;
 use BigBlueButton\Core\ApiMethod;
 use BigBlueButton\Parameters\CreateMeetingParameters;
 use BigBlueButton\Parameters\DeleteRecordingsParameters;
@@ -53,7 +54,7 @@ use SimpleXMLElement;
  * Class BigBlueButton
  * @package BigBlueButton
  */
-class BigBlueButton
+class BigBlueButton implements BigBlueButtonRepository
 {
     protected $securitySecret;
     protected $bbbServerBaseUrl;
